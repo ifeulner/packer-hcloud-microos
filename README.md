@@ -1,15 +1,30 @@
-# SuSE MicroOS image on Hetzner Cloud
+# SuSE MicroOS image snapshot on Hetzner Cloud
 
-Create an MicroOS-based snapshot on Hetzner Cloud.
+Create an MicroOS-based snapshot on [Hetzner Cloud](https://www.hetzner.com/cloud) using [packer](https://www.packer.io).
+
+## Installing
+
+On macOS just use [brew](https://brew.sh):
+
+```bash
+brew install packer
+```
+
+For other OSes and more details see the [packer documentation](https://developer.hashicorp.com/packer).
 
 ## Building
+
+Get an API token for your hcloud project (see [here](https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/)) and run `packer build`.
 
 ```bash
 export HCLOUD_TOKEN=<redacted>
 packer build hcloud-microos-snapshot.pkr.hcl
 ```
 
+The snapshot is created in your project and can then be used.
 ## Using the snapshot
+
+You can refere to the snapshot by using it's ID.
 
 ```bash
 # list the snapshot by using it's label
@@ -17,7 +32,7 @@ packer build hcloud-microos-snapshot.pkr.hcl
 ID         TYPE       NAME   DESCRIPTION        IMAGE SIZE   DISK SIZE   CREATED                        DEPRECATED
 88945574   snapshot   -      microos-snapshot   0.38 GB      40 GB       Sat Nov 12 14:28:08 CET 2022   -
 
-# retrieve just the id 
+# retrieve just the ID 
 > hcloud image list -o noheader -o "columns=id" -l microos-snapshot
 88945574
 
